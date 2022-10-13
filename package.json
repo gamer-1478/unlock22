@@ -1,0 +1,23 @@
+{
+  "name": "unlock22",
+  "version": "0.0.0-alpha",
+  "description": "A Web Game created for kimerly clark unlokc '22",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/gamer-1478/unlock22.git"
+  },
+  "keywords": [
+    "unlokc",
+    "22"
+  ],
+  "author": "gamer1478",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gamer-1478/unlock22/issues"
+  },
+  "homepage": "https://github.com/gamer-1478/unlock22#readme"
+}
