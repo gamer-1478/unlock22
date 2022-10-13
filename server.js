@@ -1,25 +1,17 @@
-const discord_router = require('./routers/discord');
-const email_router = require('./routers/email');
-const event_router = require('./routers/event');
-const { ReportWebVital, ReportCrash } = require('./utilities/misc');
-
 require('dotenv').config()
 
 const express = require('express'),
     app = express(),
     mongoose = require('mongoose'),
     session = require("cookie-session"),
-    path = require('path'),
     cookieParser = require("cookie-parser"),
+    expressLayouts = require('express-ejs-layouts'),
     passport = require('passport');
 
 const port = process.env.PORT || 3200,
-    passport_init = require('./passport'),
+    { ReportWebVital, ReportCrash } = require('./utilities/misc'),
+    passport_init = require('./utilities/passport'),
     bloatRouter = require('./routers/bloat'),
-    adminRouter = require('./routers/admin'),
-    questionRouter = require('./routers/question'),
-    practiseRouter = require('./routers/practise'),
-    answerRouter = require('./routers/answer'),
     authRouter = require("./routers/auth");
 
 
@@ -64,14 +56,14 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(bloatRouter);
-app.use("/auth", authRouter)
-app.use('/admin', adminRouter)
-app.use('/question', questionRouter)
-app.use('/ans', answerRouter)
-app.use('/practise-back', practiseRouter)
-app.use('/event-back', event_router)
-app.use('/discord-back', discord_router)
-app.use('/email-back', email_router)
+// app.use("/auth", authRouter)
+// app.use('/admin', adminRouter)
+// app.use('/question', questionRouter)
+// app.use('/ans', answerRouter)
+// app.use('/practise-back', practiseRouter)
+// app.use('/event-back', event_router)
+// app.use('/discord-back', discord_router)
+// app.use('/email-back', email_router)
 
 app.use((err, req, res, next) => {
     ReportCrash(err.stack.toString())
@@ -86,12 +78,12 @@ app.get('*', (req, res) => {
 mongoose.connect(db, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-}).then(() => {
-    ReportWebVital(`Connected to Mongo DB`);
+}).then(( mongo) => {
+    ReportWebVital(`Connected to Mongo DB `+ mongo.connection.host);
     console.log("Connected to Mongo DB")
     app.listen(port, () => {
-        ReportWebVital(`TS Prog listening at port ${port}`);
-        console.log(`TS Prog listening at http://localhost:${port}`)
+        ReportWebVital(`Unlock listening at port ${port}`);
+        console.log(`Unlokc listening at http://localhost:${port}`)
     })
 }).catch(err => {
     ReportCrash(err.stack.toString())
