@@ -16,7 +16,8 @@ const postSchema = new mongoose.Schema({
         type: String,
         default: dateStringWithTime
     },
-    likes: [reqString]
+    likes: [nonreqString],
+    dislikes: [nonreqString]
 })
 
 module.exports = mongoose.model("Community", postSchema)

@@ -1,0 +1,105 @@
+<div>
+    <h2 class="points">Points: 100</h2>
+    <br><br>
+    <div class="gamebar">
+        <button onclick="gamestate('house')"><img src="/house.png"></button>
+        <button onclick="gamestate('bath')"><img src="/bathroom.jpg"></button>
+        <button onclick="gamestate('table')"><img src="/changing table.png"></button>
+        <button onclick="gamestate('crib')"><img src="/crib.png"></button>
+    </div>
+    <br><br>
+    <div class="states">
+        <div class="house-div" id="house-div">
+            <img alt="house" id="house" src="/dashboard/image/house">
+        </div>
+        <div class="bath-div" id="bath-div">
+            <img alt="bath" id="bath" src="/dashboard/image/bath">
+        </div>
+        <div class="table-div" id="table-div">
+            <img alt="table" id="table"
+                src="/dashboard/image/table">
+        </div>
+        <div class="crib-div" id="crib-div">
+            <img alt="crib" id="crib" src="/dashboard/image/crib">
+        </div>
+    </div>
+    <br><br>
+    <div class="triviabar">
+    </div>
+
+</div>
+
+<style>
+    .points {
+        font-size: 30px;
+        font-family: 'Courier New', Courier, monospace;
+        color: #141414;
+        margin-left: 200px;
+    }
+    .states div {
+        justify-content: center;
+        align-items: center;
+    }
+
+    .bath-div,
+    .table-div,
+    .crib-div {
+        display: none;
+    }
+
+    .states {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    .gamebar {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+    }
+
+    .bath-div img,
+    .crib-div img,
+    .table-div img,
+    .house-div img {
+        width: 500px
+    }
+</style>
+
+<script>
+    var diaperState = "<%= user.diaperStat %>";
+
+    function gamestate(state) {
+        if (state == "house") {
+            document.getElementById("house-div").style.display = "flex";
+            document.getElementById("bath-div").style.display = "none";
+            document.getElementById("table-div").style.display = "none";
+            document.getElementById("crib-div").style.display = "none";
+        } else if (state == "bath") {
+            document.getElementById("house-div").style.display = "none";
+            document.getElementById("bath-div").style.display = "flex";
+            document.getElementById("table-div").style.display = "none";
+            document.getElementById("crib-div").style.display = "none";
+        } else if (state == "table") {
+            document.getElementById("house-div").style.display = "none";
+            document.getElementById("bath-div").style.display = "none";
+            document.getElementById("table-div").style.display = "flex";
+            document.getElementById("crib-div").style.display = "none";
+        } else if (state == "crib") {
+            document.getElementById("house-div").style.display = "none";
+            document.getElementById("bath-div").style.display = "none";
+            document.getElementById("table-div").style.display = "none";
+            document.getElementById("crib-div").style.display = "flex";
+        }
+    }
+</script>
+
+<style>
+    .gamebar img {
+        width: 100px;
+        height: 100px;
+    }
+</style>

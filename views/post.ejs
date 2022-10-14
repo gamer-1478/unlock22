@@ -1,0 +1,111 @@
+<div class="post-main">
+    <div class="up-down">
+        <button onclick="like('<%= post._id%>')">▲</button>
+        <p><%= post.likes.length%></p>
+        <button onclick="dislike('<%= post._id%>')">▼</button>
+    </div>
+    <div class="post-info">
+        <h1><%= post.title%></h1>
+        <p class="author">by: <%= post.author.name%></p>
+        <br>
+        <br>
+        <p class="content"><%= post.content%></p>
+        <br>
+        <p>Comments: <%= post.comments.length %> </p>
+        <br>
+        <h2>Drop a comment: </h2><br>
+        <textarea cols="100" rows="10" id="comment"></textarea>
+        <button class="submit-comment" onclick="commentsubmit()">Submit</button>
+        <div>
+            <% if (post.comments.length != 0){ %>
+            <h2>Comments: </h2>
+            <div class="comments">
+                <% post.comments.forEach(function(comment){ %>
+                    <div class="comment">
+                        <p><%= comment.content%></p>
+                        <p>by: <%= comment.author%></p>
+                    </div>
+                <% }) %>
+            </div>
+            <% } %>
+        </div>
+    </div>
+</div>
+
+<style>
+    #comment {
+        width: 100%;
+        height: 100px;
+        border-radius: 5px;
+        color: black;
+        background-color: transparent;
+        cursor: pointer;
+    }
+    .submit-comment {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        width: 8rem;
+        height: 2.5rem;
+        font-size: large;
+        border-radius: 5px;
+        border: none;
+        background-color: #312f2f;
+        color: white;
+        cursor: pointer;
+    }
+
+    .content {
+        margin-top: 20px;
+        max-width: 80%;
+    }
+    .post-main {
+        display: flex;
+        flex-direction: row;
+    }
+    .up-down {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-right: 20px;
+        margin-left: 20px;
+    }
+    .up-down button {
+        width: 50px;
+        height: 50px;
+        border-radius: 5px;
+        font-size: large;
+        margin: 10px;
+        color: black;
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+    }
+    .post-info {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-top: 20px;
+    }
+</style>
+
+<script>
+    function commentsubmit() {
+        var comment = document.getElementById("comment").value;
+        var postid = "<%= post._id%>";
+        var url = "/community/comment/" + postid;
+        var data = {
+            content: comment
+        };
+        fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        }).then(function (response) {
+            if (response.ok) {
+                window.location.reload();
+            }
+        });
+    }
+</script>
