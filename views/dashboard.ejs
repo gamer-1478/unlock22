@@ -1,41 +1,65 @@
 <div>
-    <h2 class="points">Points: 100</h2>
-    <br><br>
-    <div class="gamebar">
-        <button onclick="gamestate('house')"><img src="/house.png"></button>
-        <button onclick="gamestate('bath')"><img src="/bathroom.jpg"></button>
-        <button onclick="gamestate('table')"><img src="/changing table.png"></button>
-        <button onclick="gamestate('crib')"><img src="/crib.png"></button>
+    <h2 class="points">Points: <%= user.gameDetails.points %></h2>
+    <button>Stats</button>
+    <div class="stats">
+        <p>bathStat: <%= user.gameDetails.bathStat %> </p>
+        <p>diaperLastChanged: <%= user.gameDetails.diaperLastChanged %></p>
+        <p>bottleLastChanged: <%= user.gameDetails.bottleLastChanged %></p>
+        <p>lastTimeSlept: <%= user.gameDetails.lastTimeSlept %></p>
+        <p>lastTimeFed: <%= user.gameDetails.lastTimeFed %></p>
+        <p>lastTimePooped: <%= user.gameDetails.lastTimePooped %></p>
+        <p>lastTimeCaredFor: <%= user.gameDetails.lastTimeCaredFor %></p>
+        <p>careStat: <%= user.gameDetails.careStat %></p>
+        <p>diaperStat: <%= user.gameDetails.diaperStat %></p>
+        <p>sleepStat: <%= user.gameDetails.sleepStat %></p>
+        <p>sleepStarted: <%= user.gameDetails.sleepStarted %></p>
+        <p>feedStat: <%= user.gameDetails.feedStat %></p>
+        <p>rashStat: <%= user.gameDetails.rashStat %></p>
     </div>
     <br><br>
-    <div class="states">
-        <div class="house-div" id="house-div">
-            <img alt="house" id="house" src="/dashboard/image/house">
-        </div>
-        <div class="bath-div" id="bath-div">
-            <img alt="bath" id="bath" src="/dashboard/image/bath">
-        </div>
-        <div class="table-div" id="table-div">
-            <img alt="table" id="table"
-                src="/dashboard/image/table">
-        </div>
-        <div class="crib-div" id="crib-div">
-            <img alt="crib" id="crib" src="/dashboard/image/crib">
+    <div style="display: flex; justify-content:center;">
+        <div class="combined">
+            <div class="gamebar">
+                <button onclick="gamestate('house')"><img src="/house.png"></button>
+                <button onclick="gamestate('bath')"><img src="/bathroom.jpg"></button>
+                <button onclick="gamestate('table')"><img src="/changing table.png"></button>
+                <button onclick="gamestate('crib')"><img src="/crib.png"></button>
+            </div>
+            <div class="states">
+                <div class="house-div" id="house-div">
+                    <img alt="house" id="house" src="/dashboard/image/house">
+                </div>
+                <div class="bath-div" id="bath-div">
+                    <img alt="bath" id="bath" src="/dashboard/image/bath">
+                </div>
+                <div class="table-div" id="table-div">
+                    <img alt="table" id="table" src="/dashboard/image/table">
+                </div>
+                <div class="crib-div" id="crib-div">
+                    <img alt="crib" id="crib" src="/dashboard/image/crib">
+                </div>
+            </div>
         </div>
     </div>
+    <button onclick="changeBottle()">Change Bottle</button>
+    <button onclick="changeDiaper()">Change Diaper</button>
     <br><br>
-    <div class="triviabar">
-    </div>
-
 </div>
 
 <style>
+    .combined {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 50%;
+    }
+
     .points {
         font-size: 30px;
-        font-family: 'Courier New', Courier, monospace;
         color: #141414;
         margin-left: 200px;
     }
+
     .states div {
         justify-content: center;
         align-items: center;
@@ -55,21 +79,58 @@
         flex-wrap: wrap;
     }
 
+    .gamebar button {
+        border: none;
+        border-radius: 10px;
+        padding: 10px;
+        margin: 10px;
+        background-color: white;
+        cursor: pointer;
+    }
+
     .gamebar {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         justify-content: space-evenly;
+        width: max-content;
     }
 
     .bath-div img,
     .crib-div img,
     .table-div img,
     .house-div img {
-        width: 500px
+        width: 500px;
     }
 </style>
 
 <script>
+    function changeBottle() {
+        fetch('/dashboard/change/Bottle', {
+            method: 'Get',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(res => {
+            if (res.ok) {
+                console.log('bottle changed')
+                window.location.reload();
+            }
+        })
+    }
+
+    function changeDiaper() {
+        fetch('/dashboard/change/diaper', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(res => res.json())
+            .then(data => {
+                console.log(data);
+                window.location.reload();
+            })
+    }
+
     var diaperState = "<%= user.diaperStat %>";
 
     function gamestate(state) {
