@@ -13,6 +13,7 @@ const port = process.env.PORT || 3200,
     passport_init = require('./utilities/passport'),
     bloatRouter = require('./routers/bloat'),
     authRouter = require('./routers/auth'),
+    appointmentRouter = require('./routers/appointments'),
     dashboardRouter = require('./routers/dashboard'),
     communityRouter = require('./routers/community'),
     landingRouter = require("./routers/landing");
@@ -66,6 +67,7 @@ app.use("/", landingRouter)
 app.use('/', authRouter);
 app.use('/dashboard', dashboardRouter)
 app.use('/community', communityRouter)
+app.use('/appointment', appointmentRouter)
 // app.use('/ans', answerRouter)
 // app.use('/practise-back', practiseRouter)
 // app.use('/event-back', event_router)

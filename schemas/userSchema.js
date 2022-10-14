@@ -7,6 +7,7 @@ const mongoose = require('mongoose'),
     dateStringWithTime = moment(now).format('YYYY-MM-DD HH:MM:SS');
 
 const userSchema = new mongoose.Schema({
+    isdoctor: reqBoolean,
     email: reqString,
     name: reqString,
     password: reqString,
