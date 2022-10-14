@@ -68,21 +68,11 @@ app.use('/', authRouter);
 app.use('/dashboard', dashboardRouter)
 app.use('/community', communityRouter)
 app.use('/appointment', appointmentRouter)
-// app.use('/ans', answerRouter)
-// app.use('/practise-back', practiseRouter)
-// app.use('/event-back', event_router)
-// app.use('/discord-back', discord_router)
-// app.use('/email-back', email_router)
 
 app.use((err, req, res, next) => {
     ReportCrash(err.stack.toString())
     next(err)
 })
-
-// app.get('*', (req, res) => {
-//     console.log(req.url)
-//     res.redirect(process.env.FRONT_END_URL + req.url);
-// });
 
 mongoose.connect(db, {
     useNewUrlParser: true,
