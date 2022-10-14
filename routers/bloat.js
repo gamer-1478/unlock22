@@ -7,7 +7,7 @@ const express = require('express'),
 const bloat_router = express.Router();
 
 //serve public folder
-bloat_router.use(express.static('public'));
+bloat_router.use(express.static('/public'));
 
 //cors middleware
 const whitelist = ['unlokc22.herokuapp.com', 'localhost', 'netlify.app'];

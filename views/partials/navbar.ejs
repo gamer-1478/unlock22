@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<header class="navbar-container">
+    <nav class="navbar">
+        <a href="/" class="nav-branding"><img width="50px" src="/logo.png"></a>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/community" class="nav-link">Community</a>
+            </li>
+            <li class="nav-item">
+                <a href="/appointment" class="nav-link">Appointments</a>
+            </li>
+            <li class="nav-item">
+                <a href="/records" class="nav-link">Health Records</a>
+            </li>
+            <li class="nav-item">
+                <a href="/premium" class="nav-link">Premium Plan</a>
+            </li>
+            <li class="nav-item">
+                <a href="/leaderboard" class="nav-link">Leaderboard</a>
+            </li>
+            <% if (typeof user == "undefined") { %>
+            <li class="nav-item desktop">
+                <a href="/signup" class="nav-link">Signup</a>
+            </li>
+            <% } else { %>
+            <li class="nav-item desktop">
+                <a href="/dashboard" class="nav-link"><img width="28px"
+                        src="https://cdn.discordapp.com/attachments/1005877818586038424/1006499498874380359/profile.png"
+                        alt="profile">&nbsp; Profile</a>
+            </li>
+            <% } %>
+
+        </ul>
+        <div class="right-side-nav mobile">
+            <% if (typeof user != "undefined"){ %>
+            <a href="/dashboard"><img width="28px"
+                    src="https://cdn.discordapp.com/attachments/1005877818586038424/1006499498874380359/profile.png"
+                    alt="profile"></a>
+            <% } else { %>
+            <button class="sign-button" onclick="new function(){window.location.href = '/register'};">Sign up</button>
+            <% } %>
+        </div>
+        <div class="hamburger">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+    </nav>
+</header>
+
+<style>
+    .desktop {
+        display: none;
+    }
+
+    .sign-button {
+        background-color: #221b1c;
+        color: #fff;
+        border-radius: 5px;
+        width: 140px;
+        height: 50px;
+        font-size: 18px;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    .right-side-nav {
+        display: flex;
+        justify-content: space-between;
+        width: 10vw;
+        align-items: center;
+    }
+
+    .bar {
+        color: #000;
+    }
+
+    .navbar-container {
+        color: #000;
+        background-color: transparent;
+    }
+
+    .nav-item {
+        list-style: none;
+        color: #000;
+    }
+
+    .nav-link,
+    .nav-branding {
+        color: black;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 14px;
+    }
+
+    .nav-branding {
+        margin-right: 3vw;
+    }
+
+    .navbar {
+        min-height: 90px;
+        display: flex;
+        align-items: center;
+        padding: 0 24px;
+        justify-content: space-between;
+    }
+
+    .nav-branding {
+        font-size: 2rem;
+    }
+
+    .nav-menu {
+        /* margin-left: 2.5vw; */
+        display: flex;
+        align-items: center;
+        gap: 3vw;
+        z-index: 1;
+    }
+
+    .nav-link {
+        transition: 0.3s ease-out;
+    }
+
+    .nav-link:hover {
+        color: #84dccf;
+    }
+
+    .hamburger {
+        display: none;
+        cursor: pointer;
+    }
+
+    .bar {
+        display: block;
+        width: 25px;
+        height: 3px;
+        margin: 5px auto;
+        -webkit-transition: all 0.3s ease;
+        transition: all 0.3s ease;
+        background-color: #000;
+    }
+
+    .search-input-div {
+        border: none;
+        border-radius: 10px;
+        background-color: white;
+        font-size: 1.2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.35);
+    }
+
+    .search-input {
+        width: 250px;
+        height: 40px;
+        border: none;
+        border-radius: 10px;
+        background-color: white;
+        color: black;
+        font-size: 1.2rem;
+        padding-left: 20px;
+        transition: 0.3s;
+    }
+
+    .search-icon {
+        padding-right: 10px;
+    }
+
+    @media(max-width:768px) {
+        .desktop {
+            display: flex;
+        }
+
+        .mobile {
+            display: none;
+        }
+
+        .search-input-div {
+            display: none;
+        }
+
+        .hamburger {
+            display: block;
+            color: #000;
+        }
+
+        .hamburger.active .bar:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active .bar:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+
+        .hamburger.active .bar:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+
+        .nav-menu {
+            position: fixed;
+            left: -100%;
+            top: 90px;
+            gap: 0;
+            height: 1vh;
+            flex-direction: column;
+            background-color: #fff;
+            width: 100%;
+            height: calc(100vh - 90px);
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .nav-item {
+            margin: 2vh;
+        }
+
+        .nav-menu.active {
+            left: 0;
+        }
+
+        .navbar {
+            justify-content: space-between;
+        }
+    }
+</style>
+
+<script>
+    const hamburger = document.querySelector(".hamburger");
+    const navMenu = document.querySelector(".nav-menu");
+
+    hamburger.addEventListener("click", () => {
+        hamburger.classList.toggle("active");
+        navMenu.classList.toggle("active");
+    })
+
+    document.querySelectorAll(".nav-link").forEach(n => n.addEventListener("click", () => {
+        hamburger.classList.remove("active");
+        navMenu.classList.remove("active");
+    }))
+</script>

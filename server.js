@@ -12,7 +12,10 @@ const port = process.env.PORT || 3200,
     { ReportWebVital, ReportCrash } = require('./utilities/misc'),
     passport_init = require('./utilities/passport'),
     bloatRouter = require('./routers/bloat'),
-    authRouter = require("./routers/auth");
+    authRouter = require('./routers/auth'),
+    dashboardRouter = require('./routers/dashboard'),
+    communityRouter = require('./routers/community'),
+    landingRouter = require("./routers/landing");
 
 
 if (process.env.NODE_ENV === 'production') {
@@ -24,6 +27,9 @@ else {
 
 //ejs
 app.set('view engine', 'ejs');
+app.use(expressLayouts);
+app.use(express.static(__dirname + '/public'));
+
 
 //mongo
 const db = process.env.MONGO_URI;
@@ -56,9 +62,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(bloatRouter);
-// app.use("/auth", authRouter)
-// app.use('/admin', adminRouter)
-// app.use('/question', questionRouter)
+app.use("/", landingRouter)
+app.use('/', authRouter);
+app.use('/dashboard', dashboardRouter)
+app.use('/community', communityRouter)
 // app.use('/ans', answerRouter)
 // app.use('/practise-back', practiseRouter)
 // app.use('/event-back', event_router)
@@ -70,10 +77,10 @@ app.use((err, req, res, next) => {
     next(err)
 })
 
-app.get('*', (req, res) => {
-    console.log(req.url)
-    res.redirect(process.env.FRONT_END_URL + req.url);
-});
+// app.get('*', (req, res) => {
+//     console.log(req.url)
+//     res.redirect(process.env.FRONT_END_URL + req.url);
+// });
 
 mongoose.connect(db, {
     useNewUrlParser: true,
