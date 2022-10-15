@@ -1,52 +1,139 @@
-<div>
-    <h2 class="points">Points: <%= user.gameDetails.points %></h2>
-    <!-- <button>Stats</button>
-    <div class="stats">
-        <p>bathStat: <%= user.gameDetails.bathStat %> </p>
-        <p>diaperLastChanged: <%= user.gameDetails.diaperLastChanged %></p>
-        <p>bottleLastChanged: <%= user.gameDetails.bottleLastChanged %></p>
-        <p>lastTimeSlept: <%= user.gameDetails.lastTimeSlept %></p>
-        <p>lastTimeFed: <%= user.gameDetails.lastTimeFed %></p>
-        <p>lastTimePooped: <%= user.gameDetails.lastTimePooped %></p>
-        <p>lastTimeCaredFor: <%= user.gameDetails.lastTimeCaredFor %></p>
-        <p>careStat: <%= user.gameDetails.careStat %></p>
-        <p>diaperStat: <%= user.gameDetails.diaperStat %></p>
-        <p>sleepStat: <%= user.gameDetails.sleepStat %></p>
-        <p>sleepStarted: <%= user.gameDetails.sleepStarted %></p>
-        <p>feedStat: <%= user.gameDetails.feedStat %></p>
-        <p>rashStat: <%= user.gameDetails.rashStat %></p>
-    </div> -->
-    <br><br>
-    <div style="display: flex; justify-content:center;">
-        <div class="combined">
-            <div class="gamebar">
-                <button onclick="gamestate('house')"><img src="/house.png"></button>
-                <button onclick="gamestate('bath')"><img src="/bathroom.jpg"></button>
-                <button onclick="gamestate('table')"><img src="/changing table.png"></button>
-                <button onclick="gamestate('crib')"><img src="/crib.png"></button>
+<div style="display: flex; justify-content: space-between;">
+    <div class="ques">
+        <% for (i in ques){ %>
+        <div class="question" id="question<%= i %>">
+            <h2>Question &nbsp;<%= parseInt(i)+1 %></h2>
+            <p class="questext"><%= ques[i].ques %></p>
+            <div class="options">
+                <% for (j in ques[i].options) {%>
+                <button class="option" name="option" id="option<%= j %>" onclick="compare('<%= ques[i].options[j] %>',
+                    '<%= ques[i].ans %>', '<%= i %>')"><%= ques[i].options[j] %></button>
+                <% } %>
             </div>
-            <div class="states">
-                <div class="house-div" id="house-div">
-                    <img alt="house" id="house" src="/dashboard/image/house">
+        </div>
+        <% } %>
+    </div>
+    <br><br>
+    <div class="gameboy">
+        <div style="display: flex; justify-content:center; flex-direction: column;">
+            <div class="combined">
+                <!-- <div class="gamebar">
+                    <button onclick="gamestate('house')"><img src="/house.png"></button>
+                    <button onclick="gamestate('bath')"><img src="/bathroom.jpg"></button>
+                    <button onclick="gamestate('table')"><img src="/changing table.png"></button>
+                    <button onclick="gamestate('crib')"><img src="/crib.png"></button>
+                </div> -->
+                <div class="states">
+                    <div class="house-div" id="house-div">
+                        <img alt="house" id="house" src="/dashboard/image/house">
+                    </div>
+                    <div class="bath-div" id="bath-div">
+                        <img alt="bath" id="bath" src="/dashboard/image/bath">
+                    </div>
+                    <div class="table-div" id="table-div">
+                        <img alt="table" id="table" src="/dashboard/image/table">
+                    </div>
+                    <div class="crib-div" id="crib-div">
+                        <img alt="crib" id="crib" src="/dashboard/image/crib">
+                    </div>
                 </div>
-                <div class="bath-div" id="bath-div">
-                    <img alt="bath" id="bath" src="/dashboard/image/bath">
-                </div>
-                <div class="table-div" id="table-div">
-                    <img alt="table" id="table" src="/dashboard/image/table">
-                </div>
-                <div class="crib-div" id="crib-div">
-                    <img alt="crib" id="crib" src="/dashboard/image/crib">
-                </div>
+            </div>
+            <div style="display:flex; align-items: center; justify-content: center;">
+                <button class="action-butt" onclick="changeBottle()"><img src="/bottle.png"></button>
+                <button class="action-butt" onclick="changeDiaper()"><img src="/diaper.png"></button>
             </div>
         </div>
     </div>
-    <button onclick="changeBottle()">Change Bottle</button>
-    <button onclick="changeDiaper()">Change Diaper</button>
+    <div class="emotion-bar"></div>
     <br><br>
 </div>
 
+<script>
+    window.document.getElementById('question0').style.display = 'flex';
+</script>
+
 <style>
+    .emotion-bar {
+        height: 80vh;
+        width: 5vw;
+        background-color: #000000;
+        border-radius: 40px;
+        background-image: linear-gradient(to bottom, #FF0000, #FF7F00, #FFFF00, #00FF00, #0000FF, #4B0082, #9400D3);
+    }
+
+    .questext {
+        font-size: 20px;
+        margin: 20px;
+        font-weight: bold;
+        text-align: center;
+        color: white;
+    }
+
+    .question {
+        display: none;
+        flex-direction: column;
+        width: 30vw;
+        margin-left: 50px;
+        height: 70vh;
+        width: max-content;
+        background-color: #000000;
+        padding: 20px;
+        border-radius: 20px;
+    }
+
+    .question h2 {
+        font-size: 2rem;
+        width: 100%;
+        color: #39BFE1;
+        margin: 0;
+        padding: 0;
+    }
+
+    .options {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
+
+    .option {
+        margin: 10px;
+        display: flex;
+        align-items: center;
+        width: 80%;
+        height: 6vh;
+        border-radius: 20px;
+        font-size: medium;
+        display: flex;
+        cursor: pointer;
+        justify-content: center;
+        background-color: #39BFE1;
+        color: #fff;
+    }
+
+    .gameboy {
+        margin: 1rem;
+        padding: 1rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .action-butt {
+        border: none;
+        border-radius: 10px;
+        padding: 10px;
+        margin: 10px;
+        background-color: white;
+        cursor: pointer;
+    }
+
+    .action-butt img {
+        height: 95px;
+        width: 95px;
+    }
+
     .combined {
         display: flex;
         flex-direction: row;
@@ -104,21 +191,56 @@
 </style>
 
 <script>
+    var gameState = 'house';
+    var notyf = new Notyf({
+        duration: 3000
+    });
+
+    function compare(option, ans, i) {
+        if (option == ans) {
+            notyf.success('Correct!');
+            var random = Math.floor(Math.random() * 4);
+            if (random == 0) {
+                gamestate('house');
+            } else if (random == 1) {
+                gamestate('bath');
+            } else if (random == 2) {
+                gamestate('table');
+            } else {
+                gamestate('crib');
+            }
+        } else {
+            notyf.error('Wrong!');
+        }
+        window.document.getElementById('question' + i).style.display = 'none';
+        window.document.getElementById('question' + (parseInt(i) + 1)).style.display = 'flex';
+    }
+
     function changeBottle() {
+        var org = window.document.getElementById(gameState).src
+        window.document.getElementById(gameState).src =
+            'https://i.pinimg.com/originals/4b/bd/f6/4bbdf643da0f3a820aa723c92f6b4c3c.gif'
+        setTimeout(() => {
+            window.document.getElementById(gameState).src = org
+        }, 2000);
+
         fetch('/dashboard/change/Bottle', {
             method: 'Get',
             headers: {
                 'Content-Type': 'application/json'
             }
         }).then(res => {
-            if (res.ok) {
-                console.log('bottle changed')
-                window.location.reload();
-            }
+            //change baby image to gif for 5 seconds
         })
     }
 
     function changeDiaper() {
+        var org = window.document.getElementById(gameState).src
+        window.document.getElementById(gameState).src =
+            'https://directadvicefordads.com.au/wp-content/uploads/2016/09/DAD-nappy-change-video-short.gif'
+        setTimeout(() => {
+            window.document.getElementById(gameState).src = org
+        }, 2000);
         fetch('/dashboard/change/diaper', {
                 method: 'GET',
                 headers: {
@@ -127,7 +249,6 @@
             }).then(res => res.json())
             .then(data => {
                 console.log(data);
-                window.location.reload();
             })
     }
 
@@ -139,21 +260,25 @@
             document.getElementById("bath-div").style.display = "none";
             document.getElementById("table-div").style.display = "none";
             document.getElementById("crib-div").style.display = "none";
+            gameState = "house";
         } else if (state == "bath") {
             document.getElementById("house-div").style.display = "none";
             document.getElementById("bath-div").style.display = "flex";
             document.getElementById("table-div").style.display = "none";
             document.getElementById("crib-div").style.display = "none";
+            gameState = "bath";
         } else if (state == "table") {
             document.getElementById("house-div").style.display = "none";
             document.getElementById("bath-div").style.display = "none";
             document.getElementById("table-div").style.display = "flex";
             document.getElementById("crib-div").style.display = "none";
+            gameState = "table";
         } else if (state == "crib") {
             document.getElementById("house-div").style.display = "none";
             document.getElementById("bath-div").style.display = "none";
             document.getElementById("table-div").style.display = "none";
             document.getElementById("crib-div").style.display = "flex";
+            gameState = "crib";
         }
     }
 </script>

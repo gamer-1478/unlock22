@@ -22,4 +22,8 @@ router.get('/profile', (req, res)=>{
     res.render('profile', {user: req.user});
 })
 
+router.get('/courses', (req, res)=>{
+    res.render('courses', {user: req.user});
+})
+
 module.exports = router;

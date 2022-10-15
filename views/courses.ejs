@@ -1,0 +1,72 @@
+<div class="community">
+    <div class="post">
+        <a class="post-info"
+            href="https:/\/\\docs.google.com/document/d/1FLvtXNYjqsST-H_65yRn1EC2SpJnkR_leREzQvifGIA/edit?usp=sharing" target="_blank">
+            <h2>Course 1</h2>
+            <p class="author">on: Diaper Rash</p>
+    </a>
+    </div>
+    <br><br>
+</div>
+
+<style>
+    .author {
+        align-self: flex-start;
+    }
+
+    .up-down button {
+        width: 30px;
+        height: 30px;
+        border-radius: 5px;
+        margin: 10px;
+        color: black;
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+    }
+
+    .community {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .post-info {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .post-info h2 {
+        margin-bottom: 10px;
+    }
+
+    .post {
+        width: 60%;
+        min-height: 100px;
+        border: 1px solid black;
+        border-radius: 10px;
+        margin-top: 20px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 10px;
+    }
+
+    .up-down {
+        width: 50px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
+
+<style>
+    @media screen and (max-width: 768px) {
+        .post {
+            width: 90%;
+        }
+    }
+</style>

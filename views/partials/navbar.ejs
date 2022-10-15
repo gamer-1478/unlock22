@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <header class="navbar-container">
     <nav class="navbar">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.css">
         <a href="/" class="nav-branding"><img width="50px" src="/logo.png"></a>
         <ul class="nav-menu">
             <li class="nav-item">
-                <a href="/community" class="nav-link">Community</a>
+                <a href="/community" class="nav-link"><img src="/users 1.png"></i></a>
             </li>
             <li class="nav-item">
-                <a href="/premium" class="nav-link">Premium Plan</a>
+                <a href="/premium" class="nav-link"><img src="/diamond 1.png"></i></a>
             </li>
             <li class="nav-item">
-                <a href="/courses" class="nav-link">Courses</a>
+                <a href="/courses" class="nav-link"><img src="/electrocardiography 1.png"></a>
             </li>
             <li class="nav-item">
-                <a href="/leaderboard" class="nav-link">Leaderboard</a>
+                <a href="/leaderboard" class="nav-link"><img src="/trophy.png"></a>
             </li>
             <% if (typeof user == "undefined") { %>
             <li class="nav-item desktop">
@@ -46,6 +47,10 @@
 </header>
 
 <style>
+    a img {
+        height: 30px;
+        width: 30px;
+    }
     .desktop {
         display: none;
     }
