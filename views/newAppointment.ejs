@@ -129,7 +129,7 @@
             })
         }).then(async (response) => {
             res = await response.json()
-            if (res.sucess == true) {
+            if (res.msg == "Appointment created!") {
                 await notyf.success(res.msg);
                 setTimeout(function () {
                     window.location.href = res.link;

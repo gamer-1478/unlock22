@@ -3,32 +3,11 @@
     <header class="navbar-container">
         <nav class="navbar">
             <a href="/" class="nav-branding"><img width="70px" src="/whitelogo.png"></a>
-            <ul class="nav-menu">
-                <li class="nav-item">
-                    <a href="/community" class="nav-link">Community</a>
-                </li>
-                <li class="nav-item">
-                    <a href="/appointment" class="nav-link">Appointments</a>
-                </li>
-                <li class="nav-item">
-                    <a href="/records" class="nav-link">Health Records</a>
-                </li>
-                <li class="nav-item">
-                    <a href="/premium" class="nav-link">Premium Plan</a>
-                </li>
-                <li class="nav-item">
-                    <a href="/leaderboard" class="nav-link">Leaderboard</a>
-                </li>
-                <li class="nav-item desktop">
-                    <a href="/signup" class="nav-link">Signup</a>
-                </li>
-
-            </ul>
             <div class="right-side-nav">
+                <button style="background-color: black; color: white;" class="sign-button"
+                    onclick="new function(){window.location.href = '/login'};">LOGIN</button>
                 <button class="sign-button"
-                    onclick="new function(){window.location.href = '/login'};">Log In</button>
-                <button class="sign-button"
-                    onclick="new function(){window.location.href = '/register'};">Sign Up</button>
+                    onclick="new function(){window.location.href = '/register'};">SIGN UP</button>
             </div>
             <div class="hamburger">
                 <span class="bar"></span>
@@ -47,8 +26,9 @@
     .sign-button {
         background-color: #fff;
         color: #000;
+        border: 2px solid white;
         border-radius: 15px;
-        width: 240px;
+        width: 200px;
         height: 50px;
         font-size: 18px;
         font-weight: 600;
@@ -58,7 +38,7 @@
     .right-side-nav {
         display: flex;
         justify-content: space-between;
-        width: 20vw;
+        width: 30vw;
         align-items: center;
     }
 
