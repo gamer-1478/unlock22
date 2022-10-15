@@ -1,0 +1,108 @@
+<div>
+    <div class="landing-class">
+        <div class="signup">
+            <h1>Hello <%=user.name%>!</h1>
+            <div class="signup-form">
+                <div class="field">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" value="<%-user.name%>" name="name" placeholder="Ashok Kumar">
+                </div>
+                <div class="field">
+                    <label for="email">Email</label>
+                    <input type="text" id="email" value="<%-user.email%>" name="email"
+                        placeholder="ashok.kumar@gmail.com">
+                </div>
+                <input type="button" value="Update Profile" onclick="submit();" class="signup-button" />
+                <input type="button" value="logout" onclick="logout();" class="signup-button">
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .signup-button {
+        margin-top: 20px;
+        background-color: #393E47;
+        color: white;
+        border-radius: 5px;
+        width: 150px;
+        height: 50px;
+        font-size: 18px;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    .field {
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    input {
+        width: 300px;
+        height: 30px;
+        border-radius: 15px;
+        border: 1px solid #BBBBBB;
+        padding: 10px;
+        margin-bottom: 10px;
+        background-color: transparent;
+    }
+
+    .signup-form {
+        margin-top: 30px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .signup {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .landing-class {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: calc(100vh - 90px);
+    }
+</style>
+
+<script>
+    var notyf = new Notyf();
+    async function submit() {
+        var email = document.getElementById("email").value;
+        var name = document.getElementById("name").value;
+        await fetch("/profile", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                email: email,
+                name: name
+            })
+        }).then(async (response) => {
+            res = await response.json()
+            if (res.success == true) {
+                await notyf.success(
+                    'Profile Updated Successfully!');
+            } else {
+                await notyf.error(res.msg)
+            }
+        });
+    }
+
+    async function logout() {
+        await fetch("/logout", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(async (response) => {
+                window.location.href = "/login";
+        });
+    }
+</script>

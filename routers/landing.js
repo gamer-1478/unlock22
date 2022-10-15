@@ -18,4 +18,8 @@ router.get('/leaderboard', async (req, res)=>{
     res.render('leaderboard', {user: req.user, users});
 })
 
+router.get('/profile', (req, res)=>{
+    res.render('profile', {user: req.user});
+})
+
 module.exports = router;
